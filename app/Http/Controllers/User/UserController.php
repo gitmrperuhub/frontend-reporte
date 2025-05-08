@@ -7,7 +7,7 @@ use App\Http\Controllers\FunctionController;
 use App\Models\Module;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;   
+use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Models\Producto;
 use Illuminate\Support\Facades\Validator;
@@ -23,9 +23,13 @@ class UserController extends Controller
 
     public function login(Request $request){
         $param = array('email' => $request->email,'password' => $request->password);
+        \Log::info('Intentando login con: ' . $request->email);
         $FunctionController =FunctionController::ApiRestWithOutToken('/api/login',$param ,'POST');
-        $APP_URL_MR = config('app.app_name_mr_peru'); 
+        \Log::info('Respuesta de API: ' . json_encode($FunctionController));
+        $APP_URL_MR = config('app.app_name_mr_peru');
+        \Log::info('URL de API: ' . $APP_URL_MR);
         $urlAbsolute =$APP_URL_MR.'/api/login' ;
+
         if ($FunctionController){
             if ($FunctionController["status"]){
                 session()->put("Nombre",$FunctionController["data"]["USERREPORT_NAME"]);
@@ -42,13 +46,12 @@ class UserController extends Controller
         }else{
             return response()->json([
                 "icon"=>'error',
-                "status"=>false, 
+                "status"=>false,
                 "data"=>$FunctionController,
                 "message"=>$urlAbsolute
             ], Response::HTTP_RESERVED);
         }
     }
-    
     public function getUsers(){
         $data =DB::table('users')
         ->select("*")
@@ -85,14 +88,14 @@ class UserController extends Controller
         }
         return 'No';
     }
-    
+
     public function logout(){
         $cookie= Cookie::forget('cookie_token');
-        return response(["message"=>'cerrado'], Response::HTTP_OK)->withCookie( $cookie);   
+        return response(["message"=>'cerrado'], Response::HTTP_OK)->withCookie( $cookie);
     }
     public function SignOut(Request $request){
         Auth::logout();
-        
+
         $param = array(
             "email"=>session()->get("Email")
         );
@@ -113,7 +116,7 @@ class UserController extends Controller
         $FunctionController =FunctionController::ApiRest('/api/logout',$param ,'POST');
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('/');        
+        return redirect('/');
     }
     public function getPassword(Request $request){
         $hash=password_hash($request->password, PASSWORD_DEFAULT);
@@ -138,7 +141,7 @@ class UserController extends Controller
             ], Response::HTTP_OK);
         }
     }
-    public function RecordarContrasena(Request $request){        
+    public function RecordarContrasena(Request $request){
         $rules=[
             'email' =>  ['required', 'email']
         ];
@@ -157,7 +160,7 @@ class UserController extends Controller
             "email"=> $request->email
         );
         $FunctionController =FunctionController::ApiRestWithOutToken('/api/recordar-contrasena',$param ,'POST');
-        $APP_URL_MR = config('app.app_name_mr_peru'); 
+        $APP_URL_MR = config('app.app_name_mr_peru');
         $urlAbsolute =$APP_URL_MR.'/api/recordar-contrasena' ;
         if ($FunctionController){
             return response()->json([
@@ -171,15 +174,15 @@ class UserController extends Controller
             return response()->json([
                 "type"=>'full',
                 "icon"=>'error',
-                "status"=>false, 
+                "status"=>false,
                 "data"=>$FunctionController,
                 "message"=>$urlAbsolute
             ], Response::HTTP_RESERVED);
         }
     }
 
-    public function ResetContrasena(Request $request){  
-        $hash=password_hash($request->password_confirm, PASSWORD_DEFAULT);    
+    public function ResetContrasena(Request $request){
+        $hash=password_hash($request->password_confirm, PASSWORD_DEFAULT);
         if ($request->password_cambiar!==$request->password_confirm){
             return response()->json([
                 "type"=>'empty',
@@ -212,7 +215,7 @@ class UserController extends Controller
             "token_2"=>$request->token_2,
         );
         $FunctionController =FunctionController::ApiRestWithOutToken('/api/reset-contrasena',$param ,'POST');
-        $APP_URL_MR = config('app.app_name_mr_peru'); 
+        $APP_URL_MR = config('app.app_name_mr_peru');
         $urlAbsolute ='';
         if ($FunctionController){
             return response()->json([
@@ -225,11 +228,10 @@ class UserController extends Controller
             return response()->json([
                 "type"=>'full',
                 "icon"=>'error',
-                "status"=>false, 
+                "status"=>false,
                 "data"=>$FunctionController,
                 "message"=>$urlAbsolute
             ], Response::HTTP_RESERVED);
         }
     }
-    
 }
