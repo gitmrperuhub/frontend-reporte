@@ -19,6 +19,9 @@ class WebPages extends Controller
     public function Login(){
         return view('authentication.login');
     }
+    public function politicasyprivacidad(){
+        return view('politicasyprivacidadcrmapp');
+    }
     public function Home(){
         return FunctionController::view('pages.index');
     }

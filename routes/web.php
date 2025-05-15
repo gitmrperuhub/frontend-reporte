@@ -111,7 +111,7 @@ Route::post('/reporte/reenviar-mail-pdf', [ReporteSerieController::class, 'reenv
 Route::post('/secador/reenviar-mail-pdf', [SecadorController::class, 'reenviarMailPdf']);
 Route::post('/reporte/get-guia-detalle-by-ot', [ReporteSerieController::class, 'getGuiaDetalleByOt']);
 Route::get('/file-downloads/{filename}', [ReporteSerieController::class, 'fileDownloads']);
-
+Route::get('/politicasyprivacidad-crm-mr-app', [WebPages::class, 'politicasyprivacidad']);
 
 Route::get('/get_password', function () {
     //return 'Hello World';
