@@ -33,6 +33,7 @@ async function Authentication() {
     })
         .then(async (response) => {
             const rest = await response.json();
+            const URL_ANGULAR = APP_ANGULAR_URL + '?token=';
 
             console.log("Respuesta completa del servidor:", rest);
             const status = rest.status;
@@ -41,8 +42,8 @@ async function Authentication() {
                 const statusIn = datos.status;
                 if (statusIn) {
                     setTimeout(() => {
-                        console.log("Redirigiendo a:", datos.redirect_url);
-                        location.href = datos.redirect_url;
+                        console.log("Redirigiendo a:", URL_ANGULAR + datos.token);
+                        location.href = URL_ANGULAR + datos.token;
                     }, 1000);
                     localStorage.removeItem("email");
                     localStorage.removeItem("password");

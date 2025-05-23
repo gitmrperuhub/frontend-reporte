@@ -234,6 +234,6 @@ return [
     ],
     'name' => env('APP_NOMBRE', 'Laravel'),
     'APP_URL' => env('APP_URL'),
-    'app_name_mr_peru' => env('APP_URL_MR')
-    
+    'app_name_mr_peru' => env('APP_URL_MR'),
+    'app_angular' => env('APP_URL_ANGULAR')
 ];

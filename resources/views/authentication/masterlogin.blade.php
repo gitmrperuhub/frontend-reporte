@@ -25,7 +25,7 @@
 				<div class="d-flex align-items-center flex-lg-row-auto w-xl-600px positon-xl-relative far-conect-wrapper" >
 					<div class="w-100">
 						<div class="text-center  ">
-							<img alt="Logo" src="{{asset('assets/media/logos/LogoMrPeruTransparente.png')}}" width="500" class=" min-h-100px min-h-lg-350px" />							
+							<img alt="Logo" src="{{asset('assets/media/logos/LogoMrPeruTransparente.png')}}" width="500" class=" min-h-100px min-h-lg-350px" />
 						</div>
 						<div class=" d-none d-flex flex-row-auto bgi-no-repeat bgi-position-x-center bgi-size-contain bgi-position-y-bottom min-h-100px min-h-lg-350px" style="background-image: url({{asset('assets/media/logos/favicon.png')}}"></div>
 					</div>
@@ -33,15 +33,16 @@
 				<div class="d-flex flex-column flex-lg-row-fluid py-10">
 					<div class="d-flex flex-center flex-column flex-column-fluid">
 						<div class="w-lg-500px p-10 p-lg-15 mx-auto">
-							
+
 							@yield('content')
 						</div>
 					</div>
 				</div>
 			</div>
-		</div> 
+		</div>
 		<script>var hostUrl = "{{asset('assets/')}}";</script>
 		<script>var APP_URL = "{{config('app.APP_URL')}}" ;</script>
+        <script>var APP_ANGULAR_URL = "{{config('app.app_angular')}}" ;</script>
 		<script src="{{asset('assets/plugins/global/plugins.bundle.js')}}"></script>
 		<script src="{{asset('assets/js/scripts.bundle.js')}}"></script>
 		<!--script src="{{asset('assets/js/custom/authentication/sign-in/general.js')}}"></script-->
